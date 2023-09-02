@@ -11,7 +11,6 @@ import java.io.Serializable;
 public class ProductBrand implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_brand_seq")
     private Long id;
