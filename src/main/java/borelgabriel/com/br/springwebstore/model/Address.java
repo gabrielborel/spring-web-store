@@ -1,5 +1,6 @@
 package borelgabriel.com.br.springwebstore.model;
 
+import borelgabriel.com.br.springwebstore.enums.AddressType;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -8,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "address")
-@SequenceGenerator(name = "default_generator", sequenceName = "address_seq", allocationSize = 1)
+@SequenceGenerator(name = "address_seq", sequenceName = "address_seq", allocationSize = 1)
 public class Address implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -24,6 +25,8 @@ public class Address implements Serializable {
     @ManyToOne(targetEntity = Person.class)
     @JoinColumn(name = "person_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "person_fk"))
     private Person person;
+    @Enumerated(EnumType.STRING)
+    private AddressType addressType;
 
     public Long getId() {
         return id;
@@ -63,6 +66,14 @@ public class Address implements Serializable {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public AddressType getAddressType() {
+        return addressType;
+    }
+
+    public void setAddressType(AddressType addressType) {
+        this.addressType = addressType;
     }
 
     @Override
