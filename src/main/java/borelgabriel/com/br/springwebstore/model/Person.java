@@ -69,4 +69,9 @@ public abstract class Person implements Serializable {
         if (!(o instanceof Person person)) return false;
         return Objects.equals(getId(), person.getId());
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

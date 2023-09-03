@@ -42,4 +42,9 @@ public class ProductCategory implements Serializable {
         if (!(o instanceof ProductCategory that)) return false;
         return Objects.equals(getId(), that.getId());
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

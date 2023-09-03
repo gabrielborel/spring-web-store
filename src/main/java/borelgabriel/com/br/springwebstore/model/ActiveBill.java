@@ -114,4 +114,9 @@ public class ActiveBill implements Serializable {
         if (!(o instanceof ActiveBill billing)) return false;
         return Objects.equals(getId(), billing.getId());
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

@@ -88,4 +88,9 @@ public class Address implements Serializable {
         if (!(o instanceof Address address)) return false;
         return Objects.equals(getId(), address.getId());
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

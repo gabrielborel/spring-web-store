@@ -126,4 +126,9 @@ public class ActiveDebt implements Serializable {
         if (!(o instanceof ActiveDebt billing)) return false;
         return Objects.equals(getId(), billing.getId());
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }
