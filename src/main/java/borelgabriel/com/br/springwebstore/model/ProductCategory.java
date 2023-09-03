@@ -12,9 +12,11 @@ import java.util.Objects;
 public class ProductCategory implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_category_seq")
     private Long id;
+
     @Column(name = "name_description", nullable = false)
     private String nameDescription;
 

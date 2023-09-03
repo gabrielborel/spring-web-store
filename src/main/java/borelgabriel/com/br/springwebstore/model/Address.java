@@ -13,18 +13,24 @@ import java.util.Objects;
 public class Address implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default_generator")
     private Long id;
+
     @Column(nullable = false)
     private String street;
+
     @Column(nullable = false)
     private String zipCode;
+
     @Column(nullable = false)
     private String number;
+
     @ManyToOne(targetEntity = Person.class)
     @JoinColumn(name = "person_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "person_fk"))
     private Person person;
+
     @Enumerated(EnumType.STRING)
     private AddressType addressType;
 

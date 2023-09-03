@@ -13,11 +13,14 @@ import java.util.Objects;
 public class Access implements GrantedAuthority {
     @Serial
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.SEQUENCE, generator = "access_seq")
     private Long id;
+
     @Column(nullable = false)
     private String description;
+
     @Override
     public String getAuthority() {
         return this.description;

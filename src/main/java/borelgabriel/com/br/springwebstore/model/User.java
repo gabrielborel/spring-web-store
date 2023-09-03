@@ -16,15 +16,20 @@ import java.util.List;
 public class User implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     private Long id;
+
     @Column(nullable = false)
     private String login;
+
     @Column(nullable = false)
     private String password;
+
     @Temporal(TemporalType.DATE)
     private Date lastPasswordUpdateDate;
+
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_access",

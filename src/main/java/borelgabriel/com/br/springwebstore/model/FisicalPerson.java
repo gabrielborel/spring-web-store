@@ -11,8 +11,10 @@ import java.util.Date;
 public class FisicalPerson extends Person {
     @Serial
     private static final long serialVersionUID = 1L;
+
     @Column(nullable = false)
     private String cpf;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "birth_date", nullable = false)
     private Date birthDate;

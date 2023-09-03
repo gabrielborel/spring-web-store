@@ -2,21 +2,30 @@ package borelgabriel.com.br.springwebstore.model;
 
 import jakarta.persistence.*;
 
+import java.io.Serial;
+
 @Entity
 @Table(name = "legal_person")
 @PrimaryKeyJoinColumn(name = "id")
 public class LegalPerson extends Person {
+    @Serial
     private static final long serialVersionUID = 1L;
+
     @Column(nullable = false)
     private String cnpj;
+
     @Column(name = "state_registration", nullable = false)
     private String stateRegistration;
+
     @Column(name = "municipal_registration",nullable = false)
     private String municipalRegistration;
+
     @Column(name = "fantasy_name",nullable = false)
     private String fantasyName;
+
     @Column(name = "corporate_name",nullable = false)
     private String corporateName;
+
     @Column(nullable = false)
     private String category;
 
