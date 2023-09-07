@@ -1,6 +1,6 @@
 package borelgabriel.com.br.springwebstore.models;
 
-import borelgabriel.com.br.springwebstore.enums.ActiveDebtStatus;
+import borelgabriel.com.br.springwebstore.enums.BillToReceiveStatus;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -10,21 +10,21 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "debt")
-@SequenceGenerator(name = "debt_seq", sequenceName = "debt_seq", allocationSize = 1)
-public class ActiveDebt implements Serializable {
+@Table(name = "bill_to_receive")
+@SequenceGenerator(name = "bill_to_receive_seq", sequenceName = "bill_to_receive_seq", allocationSize = 1)
+public class BIllToReceive implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "billing_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bill_to_receive_seq")
     private Long id;
 
     @Column(nullable = false)
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private ActiveDebtStatus status;
+    private BillToReceiveStatus status;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "due_date")
@@ -72,11 +72,11 @@ public class ActiveDebt implements Serializable {
         this.description = description;
     }
 
-    public ActiveDebtStatus getStatus() {
+    public BillToReceiveStatus getStatus() {
         return status;
     }
 
-    public void setStatus(ActiveDebtStatus status) {
+    public void setStatus(BillToReceiveStatus status) {
         this.status = status;
     }
 
@@ -131,8 +131,8 @@ public class ActiveDebt implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ActiveDebt billing)) return false;
-        return Objects.equals(getId(), billing.getId());
+        if (!(o instanceof BIllToReceive bill)) return false;
+        return Objects.equals(getId(), bill.getId());
     }
 
     @Override

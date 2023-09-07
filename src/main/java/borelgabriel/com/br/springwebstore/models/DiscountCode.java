@@ -19,13 +19,13 @@ public class DiscountCode implements Serializable {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.SEQUENCE, generator = "discount_code_seq")
     private Long id;
 
-    @Column(name = "code",nullable = false)
+    @Column(name = "code", nullable = false)
     private String descriptionCode;
 
-    @Column(name = "real_value",nullable = false)
+    @Column(name = "real_value")
     private BigDecimal realValue;
 
-    @Column(name = "percentage_value",nullable = false)
+    @Column(name = "percentage_value")
     private BigDecimal percentageValue;
 
     @Column(name = "due_date", nullable = false)

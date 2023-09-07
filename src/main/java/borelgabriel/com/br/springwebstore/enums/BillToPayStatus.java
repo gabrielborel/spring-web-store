@@ -1,6 +1,6 @@
 package borelgabriel.com.br.springwebstore.enums;
 
-public enum ActiveBillStatus {
+public enum BillToPayStatus {
     PENDING("Pending"),
     PAID("Paid"),
     OVERDUE("Overdue"),
@@ -8,7 +8,7 @@ public enum ActiveBillStatus {
 
     private final String description;
 
-    ActiveBillStatus(String description) {
+    BillToPayStatus(String description) {
         this.description = description;
     }
 

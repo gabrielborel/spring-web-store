@@ -1,6 +1,7 @@
 package borelgabriel.com.br.springwebstore.models;
 
-import borelgabriel.com.br.springwebstore.enums.ActiveBillStatus;
+import borelgabriel.com.br.springwebstore.enums.BillToPayStatus;
+import borelgabriel.com.br.springwebstore.enums.BillToReceiveStatus;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -10,24 +11,25 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "billing")
-@SequenceGenerator(name = "billing_seq", sequenceName = "billing_seq", allocationSize = 1)
-public class ActiveBill implements Serializable {
+@Table(name = "bill_to_pay")
+@SequenceGenerator(name = "bill_to_pay_seq", sequenceName = "bill_to_pay_seq", allocationSize = 1)
+public class BillToPay implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "billing_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bill_to_pay_seq")
     private Long id;
 
     @Column(nullable = false)
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private ActiveBillStatus status;
+    @Column(nullable = false)
+    private BillToPayStatus status;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "due_date")
+    @Column(name = "due_date", nullable = false)
     private Date dueDate;
 
     @Temporal(TemporalType.DATE)
@@ -37,7 +39,7 @@ public class ActiveBill implements Serializable {
     @Column(name = "total_value", nullable = false)
     private BigDecimal totalValue;
 
-    @Column(name = "discount_value", nullable = false)
+    @Column(name = "discount_value")
     private BigDecimal discountValue;
 
     @ManyToOne(targetEntity = Person.class)
@@ -47,6 +49,14 @@ public class ActiveBill implements Serializable {
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "person_fk")
     )
     private Person person;
+
+    @ManyToOne(targetEntity = Person.class)
+    @JoinColumn(
+            name = "supplier_person_id",
+            nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "supplier_person_fk")
+    )
+    private Person supplierPerson;
 
     public Long getId() {
         return id;
@@ -64,11 +74,11 @@ public class ActiveBill implements Serializable {
         this.description = description;
     }
 
-    public ActiveBillStatus getStatus() {
+    public BillToPayStatus getStatus() {
         return status;
     }
 
-    public void setStatus(ActiveBillStatus status) {
+    public void setStatus(BillToPayStatus status) {
         this.status = status;
     }
 
@@ -115,8 +125,8 @@ public class ActiveBill implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ActiveBill billing)) return false;
-        return Objects.equals(getId(), billing.getId());
+        if (!(o instanceof BillToPay bill)) return false;
+        return Objects.equals(getId(), bill.getId());
     }
 
     @Override

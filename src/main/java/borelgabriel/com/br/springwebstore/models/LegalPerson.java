@@ -17,7 +17,7 @@ public class LegalPerson extends Person {
     @Column(name = "state_registration", nullable = false)
     private String stateRegistration;
 
-    @Column(name = "municipal_registration",nullable = false)
+    @Column(name = "municipal_registration")
     private String municipalRegistration;
 
     @Column(name = "fantasy_name",nullable = false)
@@ -26,7 +26,6 @@ public class LegalPerson extends Person {
     @Column(name = "corporate_name",nullable = false)
     private String corporateName;
 
-    @Column(nullable = false)
     private String category;
 
     public String getCnpj() {

@@ -27,6 +27,12 @@ public class Address implements Serializable {
     @Column(nullable = false)
     private String number;
 
+    @Column(nullable = true)
+    private String complement;
+
+    @Column(nullable = false)
+    private String city;
+
     @ManyToOne(targetEntity = Person.class)
     @JoinColumn(
             name = "person_id",
@@ -36,6 +42,7 @@ public class Address implements Serializable {
     private Person person;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private AddressType addressType;
 
     public Long getId() {

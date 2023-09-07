@@ -17,16 +17,13 @@ public class TrackingStatus implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tracking_status_seq")
     private Long id;
 
-    @Column(name = "distribution_center" ,nullable = false)
+    @Column(name = "distribution_center")
     private String distributionCenter;
 
-    @Column(nullable = false)
     private String city;
 
-    @Column(nullable = false)
     private String state;
 
-    @Column(nullable = false)
     private String status;
 
     @ManyToOne(targetEntity = SellPurchaseVirtualStore.class)

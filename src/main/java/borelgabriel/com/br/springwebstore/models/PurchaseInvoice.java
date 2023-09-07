@@ -22,7 +22,6 @@ public class PurchaseInvoice implements Serializable {
     @Column(nullable = false)
     private String number;
 
-    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
@@ -31,7 +30,7 @@ public class PurchaseInvoice implements Serializable {
     @Column(name = "total_value", nullable = false)
     private BigDecimal totalValue;
 
-    @Column(name = "discount_value", nullable = false)
+    @Column(name = "discount_value")
     private BigDecimal discountValue;
 
     @Column(name = "icms_value", nullable = false)
@@ -49,13 +48,13 @@ public class PurchaseInvoice implements Serializable {
     )
     private Person person;
 
-    @ManyToOne(targetEntity = ActiveBill.class)
+    @ManyToOne(targetEntity = BillToPay.class)
     @JoinColumn(
-            name = "bill_id",
+            name = "bill_to_pay_id",
             nullable = false,
-            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "bill_fk")
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "bill_to_pay_fk")
     )
-    private ActiveBill bill;
+    private BillToPay billToPay;
 
     @Override
     public boolean equals(Object o) {
@@ -133,11 +132,11 @@ public class PurchaseInvoice implements Serializable {
         this.person = person;
     }
 
-    public ActiveBill getBill() {
-        return bill;
+    public BillToPay getBillToPay() {
+        return billToPay;
     }
 
-    public void setBill(ActiveBill bill) {
-        this.bill = bill;
+    public void setBillToPay(BillToPay bill) {
+        this.billToPay = bill;
     }
 }

@@ -21,7 +21,7 @@ public class ProductReview implements Serializable {
     private String description;
 
     @Column(nullable = false)
-    private Integer rate;
+    private Integer rating;
 
     @ManyToOne(targetEntity = Person.class)
     @JoinColumn(
@@ -47,8 +47,8 @@ public class ProductReview implements Serializable {
         this.id = id;
     }
 
-    public Integer getRate() {
-        return rate;
+    public Integer getRating() {
+        return rating;
     }
 
     public String getDescription() {
@@ -59,8 +59,8 @@ public class ProductReview implements Serializable {
         this.description = description;
     }
 
-    public void setRate(Integer rate) {
-        this.rate = rate;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public Person getPerson() {

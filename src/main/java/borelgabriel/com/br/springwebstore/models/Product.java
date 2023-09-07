@@ -44,16 +44,16 @@ public class Product implements Serializable {
     @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity = 0;
 
-    @Column(name = "stock_alert_quantity", nullable = false)
+    @Column(name = "stock_alert_quantity")
     private Integer stockAlertQuantity = 0;
 
-    @Column(name = "youtube_video_url", nullable = false)
+    @Column(name = "youtube_video_url")
     private String youtubeVideoUrl;
 
-    @Column(name = "alert_stock_quantity", nullable = false)
+    @Column(name = "alert_stock_quantity")
     private Boolean alertStockQuantity = Boolean.FALSE;
 
-    @Column(name = "clicks_quantity", nullable = false)
+    @Column(name = "clicks_quantity")
     private Integer clicksQuantity = 0;
 
     @Column(nullable = false)

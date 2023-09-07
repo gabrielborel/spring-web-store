@@ -29,7 +29,16 @@ public class User implements UserDetails {
     private String password;
 
     @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
     private Date lastPasswordUpdateDate;
+
+    @ManyToOne(targetEntity = Person.class)
+    @JoinColumn(
+            name = "person_id",
+            nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "person_fk")
+    )
+    private Person person;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -77,6 +86,14 @@ public class User implements UserDetails {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Person getPerson() {
+        return person;
     }
 
     public Long getId() {
