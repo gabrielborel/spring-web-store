@@ -7,14 +7,14 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "sale_invoice")
-@SequenceGenerator(name = "sale_invoice_seq", sequenceName = "sale_invoice_seq", allocationSize = 1)
-public class SaleInvoice implements Serializable {
+@Table(name = "sell_invoice")
+@SequenceGenerator(name = "sell_invoice_seq", sequenceName = "sell_invoice_seq", allocationSize = 1)
+public class SellInvoice implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sale_invoice_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sell_invoice_seq")
     private Long id;
 
     @Column(nullable = false)
@@ -31,6 +31,14 @@ public class SaleInvoice implements Serializable {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String pdf;
+
+    @OneToOne(targetEntity = SellPurchaseVirtualStore.class)
+    @JoinColumn(
+            name = "sell_purchase_virtual_store_id",
+            nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "sell_purchase_virtual_store_fk")
+    )
+    private SellPurchaseVirtualStore sellPurchaseVirtualStore;
 
     public Long getId() {
         return id;
@@ -83,7 +91,7 @@ public class SaleInvoice implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SaleInvoice that)) return false;
+        if (!(o instanceof SellInvoice that)) return false;
         return Objects.equals(getId(), that.getId());
     }
 

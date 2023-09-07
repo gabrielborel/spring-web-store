@@ -29,6 +29,14 @@ public class TrackingStatus implements Serializable {
     @Column(nullable = false)
     private String status;
 
+    @ManyToOne(targetEntity = SellPurchaseVirtualStore.class)
+    @JoinColumn(
+            name = "sell_purchase_virtual_store_id",
+            nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "sell_purchase_virtual_store_fk")
+    )
+    private SellPurchaseVirtualStore sellPurchaseVirtualStore;
+
     public Long getId() {
         return id;
     }
