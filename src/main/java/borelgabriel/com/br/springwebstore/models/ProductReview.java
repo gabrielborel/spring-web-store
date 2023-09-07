@@ -17,6 +17,9 @@ public class ProductReview implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_review_seq")
     private Long id;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String description;
+
     @Column(nullable = false)
     private Integer rate;
 
@@ -46,6 +49,14 @@ public class ProductReview implements Serializable {
 
     public Integer getRate() {
         return rate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setRate(Integer rate) {
