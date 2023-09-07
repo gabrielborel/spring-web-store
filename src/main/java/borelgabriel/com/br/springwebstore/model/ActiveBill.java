@@ -41,7 +41,11 @@ public class ActiveBill implements Serializable {
     private BigDecimal discountValue;
 
     @ManyToOne(targetEntity = Person.class)
-    @JoinColumn(name = "person_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "person_fk"))
+    @JoinColumn(
+            name = "person_id",
+            nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "person_fk")
+    )
     private Person person;
 
     public Long getId() {
