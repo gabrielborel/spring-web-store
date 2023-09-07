@@ -1,4 +1,4 @@
-package borelgabriel.com.br.springwebstore.model;
+package borelgabriel.com.br.springwebstore.models;
 
 import jakarta.persistence.*;
 

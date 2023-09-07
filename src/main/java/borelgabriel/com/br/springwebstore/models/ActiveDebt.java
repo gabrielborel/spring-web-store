@@ -1,6 +1,6 @@
-package borelgabriel.com.br.springwebstore.model;
+package borelgabriel.com.br.springwebstore.models;
 
-import borelgabriel.com.br.springwebstore.enums.ActiveBillStatus;
+import borelgabriel.com.br.springwebstore.enums.ActiveDebtStatus;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -10,9 +10,9 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "billing")
-@SequenceGenerator(name = "billing_seq", sequenceName = "billing_seq", allocationSize = 1)
-public class ActiveBill implements Serializable {
+@Table(name = "debt")
+@SequenceGenerator(name = "debt_seq", sequenceName = "debt_seq", allocationSize = 1)
+public class ActiveDebt implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class ActiveBill implements Serializable {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private ActiveBillStatus status;
+    private ActiveDebtStatus status;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "due_date")
@@ -48,6 +48,14 @@ public class ActiveBill implements Serializable {
     )
     private Person person;
 
+    @ManyToOne(targetEntity = Person.class)
+    @JoinColumn(
+            name = "supplier_id",
+            nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "supplier_fk")
+    )
+    private Person supplier;
+
     public Long getId() {
         return id;
     }
@@ -64,11 +72,11 @@ public class ActiveBill implements Serializable {
         this.description = description;
     }
 
-    public ActiveBillStatus getStatus() {
+    public ActiveDebtStatus getStatus() {
         return status;
     }
 
-    public void setStatus(ActiveBillStatus status) {
+    public void setStatus(ActiveDebtStatus status) {
         this.status = status;
     }
 
@@ -112,10 +120,18 @@ public class ActiveBill implements Serializable {
         this.person = person;
     }
 
+    public Person getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Person supplier) {
+        this.supplier = supplier;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ActiveBill billing)) return false;
+        if (!(o instanceof ActiveDebt billing)) return false;
         return Objects.equals(getId(), billing.getId());
     }
 

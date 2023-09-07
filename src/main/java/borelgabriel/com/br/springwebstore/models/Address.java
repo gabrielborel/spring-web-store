@@ -1,4 +1,4 @@
-package borelgabriel.com.br.springwebstore.model;
+package borelgabriel.com.br.springwebstore.models;
 
 import borelgabriel.com.br.springwebstore.enums.AddressType;
 import jakarta.persistence.*;
@@ -28,7 +28,11 @@ public class Address implements Serializable {
     private String number;
 
     @ManyToOne(targetEntity = Person.class)
-    @JoinColumn(name = "person_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "person_fk"))
+    @JoinColumn(
+            name = "person_id",
+            nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "person_fk")
+    )
     private Person person;
 
     @Enumerated(EnumType.STRING)
