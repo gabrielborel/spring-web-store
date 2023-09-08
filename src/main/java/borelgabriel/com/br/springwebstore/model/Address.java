@@ -1,4 +1,4 @@
-package borelgabriel.com.br.springwebstore.models;
+package borelgabriel.com.br.springwebstore.model;
 
 import borelgabriel.com.br.springwebstore.enums.AddressType;
 import jakarta.persistence.*;

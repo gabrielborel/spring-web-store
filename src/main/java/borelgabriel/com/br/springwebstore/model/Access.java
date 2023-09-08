@@ -1,4 +1,4 @@
-package borelgabriel.com.br.springwebstore.models;
+package borelgabriel.com.br.springwebstore.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;

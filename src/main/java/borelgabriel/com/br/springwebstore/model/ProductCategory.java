@@ -1,4 +1,4 @@
-package borelgabriel.com.br.springwebstore.models;
+package borelgabriel.com.br.springwebstore.model;
 
 import jakarta.persistence.*;
 
@@ -7,14 +7,14 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "product_brand")
-@SequenceGenerator(name = "product_brand_seq", sequenceName = "product_brand_seq", allocationSize = 1)
-public class ProductBrand implements Serializable {
+@Table(name = "product_category")
+@SequenceGenerator(name = "product_category_seq", sequenceName = "product_category_seq", allocationSize = 1)
+public class ProductCategory implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_brand_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_category_seq")
     private Long id;
 
     @Column(name = "name_description", nullable = false)
@@ -39,7 +39,7 @@ public class ProductBrand implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ProductBrand that)) return false;
+        if (!(o instanceof ProductCategory that)) return false;
         return Objects.equals(getId(), that.getId());
     }
 
