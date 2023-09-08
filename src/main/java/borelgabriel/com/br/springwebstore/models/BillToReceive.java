@@ -12,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "bill_to_receive")
 @SequenceGenerator(name = "bill_to_receive_seq", sequenceName = "bill_to_receive_seq", allocationSize = 1)
-public class BIllToReceive implements Serializable {
+public class BillToReceive implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -131,7 +131,7 @@ public class BIllToReceive implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BIllToReceive bill)) return false;
+        if (!(o instanceof BillToReceive bill)) return false;
         return Objects.equals(getId(), bill.getId());
     }
 
