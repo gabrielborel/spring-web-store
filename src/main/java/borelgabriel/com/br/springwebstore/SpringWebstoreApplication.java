@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "borelgabriel.com.br.springwebstore")
 @EntityScan(basePackages = "borelgabriel.com.br.springwebstore.model")
 @EnableJpaRepositories(basePackages = {"borelgabriel.com.br.springwebstore.repository"})
 @EnableTransactionManagement
