@@ -100,6 +100,34 @@ public class User implements UserDetails {
         return id;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Date getLastPasswordUpdateDate() {
+        return lastPasswordUpdateDate;
+    }
+
+    public void setLastPasswordUpdateDate(Date lastPasswordUpdateDate) {
+        this.lastPasswordUpdateDate = lastPasswordUpdateDate;
+    }
+
+    public List<Access> getAccessList() {
+        return accessList;
+    }
+
+    public void setAccessList(List<Access> accessList) {
+        this.accessList = accessList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
