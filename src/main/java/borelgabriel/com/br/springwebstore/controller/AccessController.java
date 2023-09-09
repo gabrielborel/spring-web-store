@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RestController
 public class AccessController {
@@ -27,5 +29,19 @@ public class AccessController {
     public ResponseEntity<?> deleteAccess(@PathVariable Long id) {
         this.accessService.delete(id);
         return new ResponseEntity<>("Access deleted", HttpStatus.OK);
+    }
+
+    @GetMapping("/access/{id}")
+    @ResponseBody
+    public ResponseEntity<Access> getAccess(@PathVariable Long id) {
+        Access access = this.accessService.findById(id);
+        return new ResponseEntity<>(access, HttpStatus.OK);
+    }
+
+    @GetMapping("/access/description/{description}")
+    @ResponseBody
+    public ResponseEntity<List<Access>> getAccessByDescription(@PathVariable String description) {
+        List<Access> accesses = this.accessService.findByDescription(description);
+        return new ResponseEntity<>(accesses, HttpStatus.OK);
     }
 }

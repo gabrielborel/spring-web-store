@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import borelgabriel.com.br.springwebstore.model.Access;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class AccessService {
     @Autowired
@@ -17,5 +20,15 @@ public class AccessService {
 
     public void delete(Long id) {
         this.accessRepository.deleteById(id);
+    }
+
+    public Access findById(Long id) {
+        return this.accessRepository.findById(id).isPresent()
+                ? this.accessRepository.findById(id).get()
+                : null;
+    }
+
+    public List<Access> findByDescription(String description) {
+        return this.accessRepository.findAccessByDescription(description);
     }
 }
