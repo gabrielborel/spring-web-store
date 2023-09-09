@@ -14,4 +14,8 @@ public class AccessService {
     public Access save(Access access) {
         return this.accessRepository.save(access);
     }
+
+    public void delete(Long id) {
+        this.accessRepository.deleteById(id);
+    }
 }

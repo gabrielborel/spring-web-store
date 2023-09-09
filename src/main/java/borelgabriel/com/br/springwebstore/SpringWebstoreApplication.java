@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EntityScan(basePackages = "borelgabriel.com.br.springwebstore.model")
-@ComponentScan(basePackages = {"borelgabriel.*"})
 @EnableJpaRepositories(basePackages = {"borelgabriel.com.br.springwebstore.repository"})
 @EnableTransactionManagement
 public class SpringWebstoreApplication {

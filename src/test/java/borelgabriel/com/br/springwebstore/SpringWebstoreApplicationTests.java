@@ -1,24 +1,22 @@
 package borelgabriel.com.br.springwebstore;
 
+import borelgabriel.com.br.springwebstore.controller.AccessController;
 import borelgabriel.com.br.springwebstore.model.Access;
-import borelgabriel.com.br.springwebstore.repository.AccessRepository;
-import borelgabriel.com.br.springwebstore.service.AccessService;
-import org.junit.jupiter.api.Test;
+import junit.framework.TestCase;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = SpringWebstoreApplication.class)
-class SpringWebstoreApplicationTests {
+public class SpringWebstoreApplicationTests extends TestCase {
     @Autowired
-    private AccessService accessService;
+    private AccessController accessController;
 
-    @Autowired
-    private AccessRepository accessRepository;
-
-    @Test
-    void testCreateAccess() {
+    public void testCreateAccess() {
         Access access = new Access();
         access.setDescription("ROLE_ADMIN");
-        accessService.save(access);
+        Access createdAccess = this.accessController.createAccess(access).getBody();
+        assert createdAccess != null;
+        assertTrue(createdAccess.getId() > 0);
     }
 }

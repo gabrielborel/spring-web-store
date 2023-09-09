@@ -53,4 +53,9 @@ public class Access implements GrantedAuthority {
         if (!(o instanceof Access access)) return false;
         return Objects.equals(getId(), access.getId());
     }
+
+    @Override
+    public String toString() {
+        return "Access [id=" + id + ", description=" + description + "]";
+    }
 }
