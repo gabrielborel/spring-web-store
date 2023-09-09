@@ -1,5 +1,6 @@
 package borelgabriel.com.br.springwebstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -21,6 +22,7 @@ public class Access implements GrantedAuthority {
     @Column(nullable = false)
     private String description;
 
+    @JsonIgnore
     @Override
     public String getAuthority() {
         return this.description;
