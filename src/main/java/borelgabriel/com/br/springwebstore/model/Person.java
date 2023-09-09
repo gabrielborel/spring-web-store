@@ -31,6 +31,9 @@ public abstract class Person implements Serializable {
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addresses = new ArrayList<Address>();
 
+    @Column(name = "person_type", nullable = false)
+    private String personType;
+
     public Long getId() {
         return id;
     }
@@ -61,6 +64,22 @@ public abstract class Person implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public String getPersonType() {
+        return personType;
+    }
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
     }
 
     @Override
