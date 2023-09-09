@@ -66,6 +66,11 @@
             <artifactId>jackson-base</artifactId>
             <version>2.14.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>9.22.0</version>
+        </dependency>
     </dependencies>
 
     <build>
