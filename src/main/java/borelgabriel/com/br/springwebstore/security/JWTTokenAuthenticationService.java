@@ -3,8 +3,10 @@ package borelgabriel.com.br.springwebstore.security;
 import borelgabriel.com.br.springwebstore.ApplicationContextLoad;
 import borelgabriel.com.br.springwebstore.model.User;
 import borelgabriel.com.br.springwebstore.repository.UserRepository;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,31 +35,42 @@ public class JWTTokenAuthenticationService {
         response.getWriter().write("{\"Authorization\": \"" + token + "\"}");
     }
 
-    public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) {
-        this.liberateCors(response);
+    public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String tokenHeader = request.getHeader(HEADER_STRING);
         if (tokenHeader == null) return null;
 
-        String token = tokenHeader.replace(TOKEN_PREFIX, "").trim();
-        String username = Jwts
-                .parser()
-                .setSigningKey(SECRET)
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-        if (username == null) return null;
+        try {
+            String token = tokenHeader.replace(TOKEN_PREFIX, "").trim();
+            String username = Jwts
+                    .parser()
+                    .setSigningKey(SECRET)
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
+            if (username == null) return null;
 
-        User user = ApplicationContextLoad
-                .getApplicationContext()
-                .getBean(UserRepository.class)
-                .findUserByLogin(username);
-        if (user == null) return null;
+            User user = ApplicationContextLoad
+                    .getApplicationContext()
+                    .getBean(UserRepository.class)
+                    .findUserByLogin(username);
+            if (user == null) return null;
 
-        return new UsernamePasswordAuthenticationToken(
-                user.getLogin(),
-                user.getPassword(),
-                user.getAuthorities()
-        );
+            return new UsernamePasswordAuthenticationToken(
+                    user.getLogin(),
+                    user.getPassword(),
+                    user.getAuthorities()
+            );
+        } catch (SignatureException e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\"message\": \"Invalid token\"}");
+            throw e;
+        } catch (ExpiredJwtException e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\"message\": \"Expired token\"}");
+            throw e;
+        } finally {
+            this.liberateCors(response);
+        }
     }
 
     private void liberateCors(HttpServletResponse response) {
