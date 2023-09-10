@@ -1,6 +1,7 @@
 package borelgabriel.com.br.springwebstore;
 
 import borelgabriel.com.br.springwebstore.controller.AccessController;
+import borelgabriel.com.br.springwebstore.exceptions.ResourceAlreadyExistsException;
 import borelgabriel.com.br.springwebstore.model.Access;
 import borelgabriel.com.br.springwebstore.repository.AccessRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -135,7 +136,7 @@ public class SpringWebstoreApplicationTests extends TestCase {
     }
 
     @Test
-    public void testCreateAccess() {
+    public void testCreateAccess() throws ResourceAlreadyExistsException {
         Access access = new Access();
         access.setDescription("ROLE_ADMIN");
         Access createdAccess = this.accessController.createAccess(access).getBody();

@@ -35,6 +35,7 @@ public class WebConfigSecurity implements HttpSessionListener {
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/index").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .anyRequest().authenticated()
         );
         http.logout((logout) -> logout
                 .logoutUrl("/logout")

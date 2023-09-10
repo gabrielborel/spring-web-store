@@ -1,11 +1,12 @@
 package borelgabriel.com.br.springwebstore.controller;
 
+import borelgabriel.com.br.springwebstore.exceptions.ResourceAlreadyExistsException;
 import borelgabriel.com.br.springwebstore.model.Access;
+import borelgabriel.com.br.springwebstore.exceptions.ResourceNotFoundException;
 import borelgabriel.com.br.springwebstore.service.AccessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class AccessController {
 
     @PostMapping("/access")
     @ResponseBody
-    public ResponseEntity<Access> createAccess(@RequestBody Access access) {
+    public ResponseEntity<Access> createAccess(@RequestBody Access access) throws ResourceAlreadyExistsException {
         Access createdAccess = this.accessService.save(access);
         return new ResponseEntity<>(createdAccess, HttpStatus.CREATED);
     }
@@ -33,7 +34,7 @@ public class AccessController {
 
     @GetMapping("/access/{id}")
     @ResponseBody
-    public ResponseEntity<Access> getAccess(@PathVariable Long id) {
+    public ResponseEntity<Access> getAccess(@PathVariable Long id) throws ResourceNotFoundException {
         Access access = this.accessService.findById(id);
         return new ResponseEntity<>(access, HttpStatus.OK);
     }
@@ -41,7 +42,7 @@ public class AccessController {
     @GetMapping("/access/description/{description}")
     @ResponseBody
     public ResponseEntity<List<Access>> getAccessByDescription(@PathVariable String description) {
-        List<Access> accesses = this.accessService.findByDescription(description);
+        List<Access> accesses = this.accessService.findByDescription(description.toUpperCase());
         return new ResponseEntity<>(accesses, HttpStatus.OK);
     }
 }

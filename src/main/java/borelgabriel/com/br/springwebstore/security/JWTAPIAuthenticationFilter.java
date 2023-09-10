@@ -14,11 +14,16 @@ import java.io.IOException;
 
 public class JWTAPIAuthenticationFilter extends GenericFilterBean {
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        Authentication authentication = new JWTTokenAuthenticationService()
-                .getAuthentication((HttpServletRequest) request, (HttpServletResponse) response);
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException {
+        try {
+            Authentication authentication = new JWTTokenAuthenticationService()
+                    .getAuthentication((HttpServletRequest) request, (HttpServletResponse) response);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        filterChain.doFilter(request, response);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            filterChain.doFilter(request, response);
+        } catch(Exception e) {
+            e.printStackTrace();
+            response.getWriter().write("Internal server error, contact the administrator: \n" + e.getMessage());
+        }
     }
 }

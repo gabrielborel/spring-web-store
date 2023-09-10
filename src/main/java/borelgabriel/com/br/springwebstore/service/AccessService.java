@@ -1,5 +1,7 @@
 package borelgabriel.com.br.springwebstore.service;
 
+import borelgabriel.com.br.springwebstore.exceptions.ResourceAlreadyExistsException;
+import borelgabriel.com.br.springwebstore.exceptions.ResourceNotFoundException;
 import borelgabriel.com.br.springwebstore.repository.AccessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,14 +9,16 @@ import org.springframework.stereotype.Service;
 import borelgabriel.com.br.springwebstore.model.Access;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccessService {
     @Autowired
     private AccessRepository accessRepository;
 
-    public Access save(Access access) {
+    public Access save(Access access) throws ResourceAlreadyExistsException {
+        List<Access> accesses = this.accessRepository.findAccessByDescription(access.getDescription().toUpperCase());
+        System.out.println(accesses.isEmpty());
+        if (!accesses.isEmpty()) throw new ResourceAlreadyExistsException("Access with description: '"+ access.getDescription() + "' already exists");
         return this.accessRepository.save(access);
     }
 
@@ -22,10 +26,10 @@ public class AccessService {
         this.accessRepository.deleteById(id);
     }
 
-    public Access findById(Long id) {
-        return this.accessRepository.findById(id).isPresent()
-                ? this.accessRepository.findById(id).get()
-                : null;
+    public Access findById(Long id) throws ResourceNotFoundException {
+        var access = this.accessRepository.findById(id).orElse(null);
+        if (access == null) throw new ResourceNotFoundException("Access with id "+ id + " not found");
+        return access;
     }
 
     public List<Access> findByDescription(String description) {

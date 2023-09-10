@@ -1,5 +1,7 @@
 package borelgabriel.com.br.springwebstore;
 
+import borelgabriel.com.br.springwebstore.exceptions.ResourceAlreadyExistsException;
+import borelgabriel.com.br.springwebstore.exceptions.ResourceNotFoundException;
 import borelgabriel.com.br.springwebstore.model.dto.ErrorObjectDTO;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,7 +40,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
         errorObjectDTO.setError(message.toString());
         errorObjectDTO.setCode(String.valueOf(statusCode.value()));
-        return new ResponseEntity<Object>(errorObjectDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<Object>(errorObjectDTO, statusCode);
     }
 
     @ExceptionHandler({
@@ -63,5 +65,21 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         errorObjectDTO.setError(message.toString());
         errorObjectDTO.setCode(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
         return new ResponseEntity<Object>(errorObjectDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler({ ResourceNotFoundException.class })
+    public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        ErrorObjectDTO errorObjectDTO = new ErrorObjectDTO();
+        errorObjectDTO.setError(ex.getMessage());
+        errorObjectDTO.setCode(String.valueOf(HttpStatus.NOT_FOUND.value()));
+        return new ResponseEntity<Object>(errorObjectDTO, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({ ResourceAlreadyExistsException.class })
+    public ResponseEntity<Object> handleResourceAlreadyExists(ResourceAlreadyExistsException ex) {
+        ErrorObjectDTO errorObjectDTO = new ErrorObjectDTO();
+        errorObjectDTO.setError(ex.getMessage());
+        errorObjectDTO.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
+        return new ResponseEntity<Object>(errorObjectDTO, HttpStatus.BAD_REQUEST);
     }
 }
