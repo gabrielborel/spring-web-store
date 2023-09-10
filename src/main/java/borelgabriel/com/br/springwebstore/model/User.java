@@ -40,7 +40,7 @@ public class User implements UserDetails {
     )
     private Person person;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_access",
             uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "access_id"}, name = "unique_user_access"),
@@ -126,6 +126,18 @@ public class User implements UserDetails {
 
     public void setAccessList(List<Access> accessList) {
         this.accessList = accessList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", person=" + person +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", lastPasswordUpdateDate=" + lastPasswordUpdateDate +
+                ", accessList=" + accessList +
+                '}';
     }
 
     @Override
